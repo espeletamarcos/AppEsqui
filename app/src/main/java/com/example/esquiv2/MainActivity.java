@@ -181,6 +181,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lanzador.launch(i); // Lanzamos el intent que acabos de crear
     }
 
+
+    //Damos funcionalidad a todos los items
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item)
     {

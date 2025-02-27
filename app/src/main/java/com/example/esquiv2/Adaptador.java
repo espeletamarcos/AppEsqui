@@ -18,7 +18,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.MiContenedor> impl
     Context contexto;
     ArrayList<Estacion> listaDatos;
     View.OnClickListener escuchador;
-    int adapterPosition;
+    int adapterPosition; //Propiedad para obtener la posicion del item que hacemos click
 
     public Adaptador(Context contexto, ArrayList<Estacion> listaDatos, View.OnClickListener escuchador) {
         this.contexto = contexto;
@@ -35,6 +35,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.MiContenedor> impl
         return new Adaptador.MiContenedor(vItem);
     }
 
+    //Método en el que modificamos los valores del itemLayout
     @Override
     public void onBindViewHolder(@NonNull MiContenedor holder, int position) {
         Estacion estacion = listaDatos.get(position);
@@ -55,8 +56,10 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.MiContenedor> impl
         escuchador.onClick(view);
     }
 
+    //ViewHolder
     public class MiContenedor extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener
     {
+        //Definimos todas las variables que están en el itemLayout
         TextView nombre, cordillera, n_remontes, km_pistas;
         ImageView imagen;
 
@@ -70,12 +73,15 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.MiContenedor> impl
             imagen = itemView.findViewById(R.id.imagen);
             itemView.setOnCreateContextMenuListener(this);
 
+            //Método para que al hacer click largo en el RecyclerView la propiedad adapterPosition adopte esa posicion
+            //Mirar en el onContextItemSelected para entenderlo mejor
             itemView.setOnLongClickListener(v -> {
                 adapterPosition = getAdapterPosition();
                 return false;
             });
         }
 
+        //Definimos todas las opciones del menu contextual
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo)
         {
@@ -83,6 +89,8 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.MiContenedor> impl
         }
     }
 
+    //Este método devuelve la propiedad adapterPosition, esta posicion es la del item que hacemos click
+    // con esta posición podremos obtener toda la información de la estación
     public int getAdapterPosition() {
         return adapterPosition;
     }
